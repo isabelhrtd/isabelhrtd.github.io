@@ -1,0 +1,1053 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>BASE DE DATOS II // Isabel Juliana Hurtado Paucar</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --black: #070506;
+            --black-2: #100708;
+            --dark-red: #28070b;
+            --red: #6f101a;
+            --blood: #a91b27;
+            --bright: #d12a35;
+            --paper: #d9cbc4;
+            --gray: #8c7a76;
+            --line: #421319;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--black);
+            color: var(--paper);
+            font-family: Georgia, "Times New Roman", serif;
+            overflow-x: hidden;
+        }
+
+        /* =========================================
+           ATMÓSFERA
+        ========================================= */
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 50;
+
+            background:
+                repeating-linear-gradient(
+                    0deg,
+                    transparent 0px,
+                    transparent 3px,
+                    rgba(255,255,255,.018) 4px
+                );
+        }
+
+        body::after {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 49;
+
+            background:
+                radial-gradient(
+                    ellipse at center,
+                    transparent 35%,
+                    rgba(0,0,0,.72) 100%
+                );
+        }
+
+        /* =========================================
+           HEADER / HUD
+        ========================================= */
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 72px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 5vw;
+
+            background: rgba(7,5,6,.92);
+            border-bottom: 1px solid var(--line);
+
+            backdrop-filter: blur(8px);
+
+            z-index: 40;
+        }
+
+        .logo {
+            font-family: monospace;
+            font-size: 12px;
+            letter-spacing: 2px;
+            color: var(--blood);
+        }
+
+        .logo span {
+            color: var(--gray);
+        }
+
+        nav {
+            display: flex;
+            gap: 28px;
+        }
+
+        nav a {
+            color: var(--gray);
+            text-decoration: none;
+            font-family: monospace;
+            font-size: 11px;
+            letter-spacing: 2px;
+
+            transition: .25s;
+        }
+
+        nav a:hover {
+            color: var(--bright);
+            text-shadow: 0 0 10px rgba(209,42,53,.5);
+        }
+
+        /* =========================================
+           HERO
+        ========================================= */
+
+        .hero {
+            min-height: 100vh;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            padding: 120px 25px 80px;
+
+            position: relative;
+
+            background:
+                radial-gradient(
+                    circle at 50% 45%,
+                    rgba(105,12,22,.22),
+                    transparent 45%
+                );
+        }
+
+        .hero-content {
+            width: min(900px, 100%);
+            text-align: center;
+        }
+
+        .academic {
+            font-family: monospace;
+            color: var(--gray);
+            font-size: 12px;
+            letter-spacing: 3px;
+            line-height: 1.8;
+            margin-bottom: 40px;
+        }
+
+        .academic strong {
+            color: var(--paper);
+        }
+
+        .course-label {
+            font-family: monospace;
+            font-size: 11px;
+            color: var(--blood);
+            letter-spacing: 6px;
+            margin-bottom: 15px;
+        }
+
+        .course-title {
+            font-size: clamp(45px, 9vw, 110px);
+            font-weight: normal;
+            letter-spacing: 5px;
+
+            color: var(--paper);
+
+            text-shadow:
+                4px 4px 0 var(--dark-red),
+                0 0 30px rgba(169,27,39,.18);
+
+            line-height: .95;
+        }
+
+        .student-name {
+            margin-top: 35px;
+
+            font-size: clamp(18px, 3vw, 28px);
+            font-weight: normal;
+
+            color: #c5b7b2;
+            letter-spacing: 2px;
+        }
+
+        .description {
+            max-width: 650px;
+            margin: 25px auto 45px;
+
+            color: var(--gray);
+            font-size: 15px;
+            line-height: 1.8;
+        }
+
+        .enter-button {
+            display: inline-block;
+
+            padding: 15px 30px;
+
+            border: 1px solid var(--red);
+
+            color: var(--paper);
+            text-decoration: none;
+
+            font-family: monospace;
+            font-size: 11px;
+            letter-spacing: 3px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    transparent,
+                    rgba(111,16,26,.25),
+                    transparent
+                );
+
+            transition: .3s;
+        }
+
+        .enter-button:hover {
+            background: var(--red);
+            color: white;
+
+            box-shadow:
+                0 0 25px rgba(169,27,39,.3);
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 25px;
+            left: 50%;
+            transform: translateX(-50%);
+
+            color: var(--gray);
+            font-family: monospace;
+            font-size: 9px;
+            letter-spacing: 3px;
+
+            opacity: .6;
+        }
+
+        /* =========================================
+           ARCHIVO
+        ========================================= */
+
+        .archive {
+            min-height: 100vh;
+            padding: 100px 5vw;
+
+            border-top: 1px solid var(--line);
+        }
+
+        .section-heading {
+            width: min(1100px, 100%);
+            margin: auto;
+        }
+
+        .section-label {
+            color: var(--blood);
+            font-family: monospace;
+            font-size: 11px;
+            letter-spacing: 4px;
+        }
+
+        .section-heading h2 {
+            font-size: clamp(32px, 6vw, 60px);
+            font-weight: normal;
+            margin-top: 8px;
+        }
+
+        .section-heading p {
+            color: var(--gray);
+            margin-top: 10px;
+            font-family: monospace;
+            font-size: 11px;
+        }
+
+        /* =========================================
+           UNIDADES
+        ========================================= */
+
+        .units {
+            width: min(1100px, 100%);
+            margin: 55px auto;
+
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
+        }
+
+        .unit {
+            min-height: 300px;
+
+            border: 1px solid var(--line);
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #18090b,
+                    #090607
+                );
+
+            padding: 25px;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+
+            cursor: pointer;
+
+            position: relative;
+            overflow: hidden;
+
+            transition:
+                transform .35s,
+                border-color .35s,
+                box-shadow .35s;
+        }
+
+        .unit::before {
+            content: "";
+
+            position: absolute;
+            width: 90px;
+            height: 90px;
+
+            background: var(--dark-red);
+
+            border-radius: 50%;
+
+            top: -45px;
+            right: -35px;
+
+            opacity: .4;
+        }
+
+        .unit:hover {
+            transform: translateY(-8px);
+
+            border-color: var(--blood);
+
+            box-shadow:
+                0 15px 45px rgba(0,0,0,.7),
+                0 0 25px rgba(169,27,39,.12);
+        }
+
+        .unit-number {
+            font-family: monospace;
+            color: var(--blood);
+            font-size: 11px;
+            letter-spacing: 2px;
+        }
+
+        .unit h3 {
+            font-size: 40px;
+            font-weight: normal;
+        }
+
+        .unit-status {
+            font-family: monospace;
+            font-size: 9px;
+            color: var(--gray);
+            letter-spacing: 2px;
+        }
+
+        .progress {
+            height: 4px;
+            background: #251114;
+            margin-top: 10px;
+        }
+
+        .progress span {
+            display: block;
+            height: 100%;
+            background: var(--red);
+        }
+
+        .unit-button {
+            border: 1px solid #542027;
+            padding: 10px;
+
+            text-align: center;
+
+            color: var(--gray);
+            font-family: monospace;
+            font-size: 9px;
+            letter-spacing: 2px;
+        }
+
+        /* =========================================
+           HOJA
+        ========================================= */
+
+        .overlay {
+            position: fixed;
+            inset: 0;
+
+            background: rgba(0,0,0,.78);
+
+            opacity: 0;
+            pointer-events: none;
+
+            transition: opacity .4s;
+
+            z-index: 60;
+        }
+
+        .overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .sheet {
+            position: fixed;
+
+            width: min(900px, 94%);
+            max-height: 85vh;
+
+            left: 50%;
+            bottom: 0;
+
+            transform: translate(-50%, 110%);
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #ddd0c9,
+                    #b8aaa4
+                );
+
+            color: #17090b;
+
+            border-top: 5px solid var(--blood);
+
+            padding: 40px;
+
+            overflow-y: auto;
+
+            z-index: 61;
+
+            box-shadow:
+                0 -20px 80px rgba(0,0,0,.9);
+
+            transition:
+                transform .65s cubic-bezier(.16,.8,.25,1);
+        }
+
+        .sheet.active {
+            transform: translate(-50%, 0);
+        }
+
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+
+            background: none;
+            border: none;
+
+            color: var(--dark-red);
+
+            font-family: monospace;
+            cursor: pointer;
+        }
+
+        .sheet-label {
+            font-family: monospace;
+            color: var(--red);
+            font-size: 11px;
+            letter-spacing: 3px;
+        }
+
+        .sheet h2 {
+            font-size: clamp(35px, 7vw, 60px);
+            font-weight: normal;
+            margin: 10px 0 30px;
+        }
+
+        .weeks {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .week {
+            padding: 20px;
+
+            border: 1px solid #806d67;
+
+            background: rgba(255,255,255,.15);
+
+            font-family: monospace;
+
+            cursor: pointer;
+
+            transition: .25s;
+        }
+
+        .week:hover {
+            background: var(--red);
+            color: white;
+            transform: translateX(5px);
+        }
+
+        .week span {
+            display: block;
+            font-size: 9px;
+            margin-bottom: 8px;
+            opacity: .65;
+        }
+
+        /* =========================================
+           FOOTER
+        ========================================= */
+
+        footer {
+            border-top: 1px solid var(--line);
+
+            padding: 55px 5vw 30px;
+
+            background: #090607;
+        }
+
+        .footer-grid {
+            width: min(1100px, 100%);
+            margin: auto;
+
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 40px;
+        }
+
+        .footer-main h3 {
+            font-size: 22px;
+            font-weight: normal;
+            margin-bottom: 10px;
+        }
+
+        .footer-main p,
+        .footer-column p {
+            color: var(--gray);
+            font-family: monospace;
+            font-size: 10px;
+            line-height: 1.8;
+        }
+
+        .footer-column h4 {
+            color: var(--blood);
+            font-family: monospace;
+            font-size: 10px;
+            letter-spacing: 2px;
+            margin-bottom: 12px;
+        }
+
+        .copyright {
+            width: min(1100px, 100%);
+            margin: 45px auto 0;
+
+            padding-top: 20px;
+
+            border-top: 1px solid #241114;
+
+            color: #574b49;
+
+            font-family: monospace;
+            font-size: 9px;
+
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /* =========================================
+           RESPONSIVE
+        ========================================= */
+
+        @media (max-width: 850px) {
+
+            .units {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .footer-main {
+                grid-column: 1 / -1;
+            }
+        }
+
+        @media (max-width: 600px) {
+
+            header {
+                height: auto;
+                min-height: 65px;
+                padding: 15px 20px;
+            }
+
+            nav {
+                gap: 12px;
+            }
+
+            nav a {
+                font-size: 8px;
+            }
+
+            .logo {
+                font-size: 9px;
+            }
+
+            .hero {
+                padding-top: 130px;
+            }
+
+            .academic {
+                font-size: 9px;
+            }
+
+            .course-title {
+                letter-spacing: 2px;
+            }
+
+            .student-name {
+                line-height: 1.4;
+            }
+
+            .units {
+                grid-template-columns: 1fr;
+            }
+
+            .unit {
+                min-height: 250px;
+            }
+
+            .sheet {
+                width: 100%;
+                max-height: 90vh;
+                padding: 30px 20px;
+            }
+
+            .weeks {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .copyright {
+                flex-direction: column;
+                gap: 8px;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+<header>
+
+    <div class="logo">
+        ISABEL_HRTD <span>// DB-II</span>
+    </div>
+
+    <nav>
+        <a href="#inicio">INICIO</a>
+        <a href="#unidades">UNIDADES</a>
+        <a href="#info">INFO</a>
+    </nav>
+
+</header>
+
+
+<!-- =========================================
+     INICIO
+========================================= -->
+
+<section class="hero" id="inicio">
+
+    <div class="hero-content">
+
+        <div class="academic">
+
+            <strong>INGENIERÍA DE SISTEMAS Y COMPUTACIÓN</strong><br>
+
+            UNIVERSIDAD PERUANA LOS ANDES
+
+        </div>
+
+
+        <div class="course-label">
+            ACADEMIC COURSE // 2026
+        </div>
+
+
+        <h1 class="course-title">
+            BASE DE DATOS II
+        </h1>
+
+
+        <h2 class="student-name">
+            Isabel Juliana Hurtado Paucar
+        </h2>
+
+
+        <p class="description">
+
+            Archivo digital de los trabajos, actividades y proyectos
+            desarrollados durante el curso de Base de Datos II,
+            como parte de mi formación en Ingeniería de Sistemas
+            y Computación.
+
+        </p>
+
+
+        <a href="#unidades" class="enter-button">
+            [ ENTRAR AL ARCHIVO ]
+        </a>
+
+    </div>
+
+
+    <div class="scroll-indicator">
+        ↓ SCROLL TO ACCESS ARCHIVE
+    </div>
+
+</section>
+
+
+<!-- =========================================
+     UNIDADES
+========================================= -->
+
+<section class="archive" id="unidades">
+
+    <div class="section-heading">
+
+        <div class="section-label">
+            DATABASE_ARCHIVE // 001
+        </div>
+
+        <h2>
+            UNIDADES
+        </h2>
+
+        <p>
+            SELECT A UNIT TO ACCESS THE ACADEMIC FILES
+        </p>
+
+    </div>
+
+
+    <div class="units">
+
+
+        <article class="unit" onclick="openUnit(1)">
+
+            <div class="unit-number">
+                UNIT // 01
+            </div>
+
+            <div>
+
+                <h3>I</h3>
+
+                <div class="unit-status">
+                    STATUS: ARCHIVED
+                </div>
+
+                <div class="progress">
+                    <span style="width:100%"></span>
+                </div>
+
+            </div>
+
+            <div class="unit-button">
+                SELECT UNIT
+            </div>
+
+        </article>
+
+
+        <article class="unit" onclick="openUnit(2)">
+
+            <div class="unit-number">
+                UNIT // 02
+            </div>
+
+            <div>
+
+                <h3>II</h3>
+
+                <div class="unit-status">
+                    STATUS: CURRENT
+                </div>
+
+                <div class="progress">
+                    <span style="width:55%"></span>
+                </div>
+
+            </div>
+
+            <div class="unit-button">
+                SELECT UNIT
+            </div>
+
+        </article>
+
+
+        <article class="unit" onclick="openUnit(3)">
+
+            <div class="unit-number">
+                UNIT // 03
+            </div>
+
+            <div>
+
+                <h3>III</h3>
+
+                <div class="unit-status">
+                    STATUS: LOCKED
+                </div>
+
+                <div class="progress">
+                    <span style="width:20%"></span>
+                </div>
+
+            </div>
+
+            <div class="unit-button">
+                SELECT UNIT
+            </div>
+
+        </article>
+
+
+        <article class="unit" onclick="openUnit(4)">
+
+            <div class="unit-number">
+                UNIT // 04
+            </div>
+
+            <div>
+
+                <h3>IV</h3>
+
+                <div class="unit-status">
+                    STATUS: LOCKED
+                </div>
+
+                <div class="progress">
+                    <span style="width:5%"></span>
+                </div>
+
+            </div>
+
+            <div class="unit-button">
+                SELECT UNIT
+            </div>
+
+        </article>
+
+
+    </div>
+
+</section>
+
+
+<!-- =========================================
+     HOJA DE UNIDAD
+========================================= -->
+
+<div class="overlay" id="overlay" onclick="closeUnit()"></div>
+
+
+<section class="sheet" id="sheet">
+
+    <button class="close" onclick="closeUnit()">
+        [ X ]
+    </button>
+
+    <div class="sheet-label">
+        ACADEMIC FILE // UNIT
+    </div>
+
+    <h2 id="sheetTitle">
+        UNIDAD I
+    </h2>
+
+
+    <div class="weeks">
+
+        <div class="week">
+            <span>WEEK // 01</span>
+            TRABAJOS DE LA SEMANA
+        </div>
+
+        <div class="week">
+            <span>WEEK // 02</span>
+            TRABAJOS DE LA SEMANA
+        </div>
+
+        <div class="week">
+            <span>WEEK // 03</span>
+            TRABAJOS DE LA SEMANA
+        </div>
+
+        <div class="week">
+            <span>WEEK // 04</span>
+            TRABAJOS DE LA SEMANA
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================
+     FOOTER
+========================================= -->
+
+<footer id="info">
+
+    <div class="footer-grid">
+
+
+        <div class="footer-main">
+
+            <h3>
+                Isabel Juliana Hurtado Paucar
+            </h3>
+
+            <p>
+                Portafolio académico digital<br>
+                Base de Datos II — 2026
+            </p>
+
+        </div>
+
+
+        <div class="footer-column">
+
+            <h4>
+                CARRERA
+            </h4>
+
+            <p>
+                Ingeniería de Sistemas<br>
+                y Computación
+            </p>
+
+        </div>
+
+
+        <div class="footer-column">
+
+            <h4>
+                UNIVERSIDAD
+            </h4>
+
+            <p>
+                Universidad Peruana<br>
+                Los Andes
+            </p>
+
+        </div>
+
+
+    </div>
+
+
+    <div class="copyright">
+
+        <span>
+            © 2026 ISABEL JULIANA HURTADO PAUCAR
+        </span>
+
+        <span>
+            ACADEMIC ARCHIVE // DB-II
+        </span>
+
+    </div>
+
+</footer>
+
+
+<script>
+
+    const sheet = document.getElementById("sheet");
+    const overlay = document.getElementById("overlay");
+    const sheetTitle = document.getElementById("sheetTitle");
+
+
+    function openUnit(unit) {
+
+        const names = [
+            "",
+            "UNIDAD I",
+            "UNIDAD II",
+            "UNIDAD III",
+            "UNIDAD IV"
+        ];
+
+        sheetTitle.textContent = names[unit];
+
+        sheet.classList.add("active");
+        overlay.classList.add("active");
+
+        document.body.style.overflow = "hidden";
+    }
+
+
+    function closeUnit() {
+
+        sheet.classList.remove("active");
+        overlay.classList.remove("active");
+
+        document.body.style.overflow = "";
+
+    }
+
+
+    document.addEventListener("keydown", function(event) {
+
+        if (event.key === "Escape") {
+            closeUnit();
+        }
+
+    });
+
+</script>
+
+</body>
+</html>
