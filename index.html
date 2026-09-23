@@ -3,617 +3,25 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Base de Datos II — UPLA</title>
-
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=Press+Start+2P&family=UnifrakturCook:wght@700&display=swap');
-
-:root{
-  --red:#d9142b;
-  --red2:#ff2944;
-  --darkred:#720c18;
-  --black:#030303;
-  --panel:#080808ee;
-  --line:#9c1120;
-  --white:#eee8e5;
-  --muted:#a8a0a0;
-  --pixel:'Press Start 2P', monospace;
-  --mono:'Courier Prime', monospace;
-  --gothic:'UnifrakturCook', cursive;
-}
-
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-
-body{
-  margin:0;
-  min-height:100vh;
-  background:
-    radial-gradient(circle at 50% 20%, #3b050c 0%, #100205 28%, #020202 68%);
-  color:var(--white);
-  font-family:var(--mono);
-  overflow-x:hidden;
-}
-
-body:before{
-  content:"";
-  position:fixed;
-  inset:0;
-  pointer-events:none;
-  z-index:100;
-  opacity:.16;
-  background:
-    repeating-linear-gradient(
-      0deg,
-      transparent 0px,
-      transparent 2px,
-      #fff 3px,
-      transparent 4px
-    );
-  mix-blend-mode:screen;
-}
-
-body:after{
-  content:"";
-  position:fixed;
-  inset:0;
-  pointer-events:none;
-  z-index:101;
-  box-shadow:inset 0 0 130px #000;
-}
-
-a{color:inherit;text-decoration:none}
-button{font:inherit}
-
-.desktop{
-  width:min(1450px,96vw);
-  min-height:100vh;
-  margin:auto;
-  position:relative;
-}
-
-/* ===== RETRO WINDOW ===== */
-.window-bar{
-  height:34px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:0 8px 0 12px;
-  background:linear-gradient(#26070b,#090202);
-  border:1px solid var(--red);
-  box-shadow:0 0 12px #c20f2544;
-  color:var(--red2);
-  font-family:var(--pixel);
-  font-size:9px;
-  letter-spacing:.3px;
-}
-
-.window-controls{display:flex;gap:4px}
-.window-controls span{
-  width:22px;height:20px;
-  display:grid;place-items:center;
-  border:1px solid var(--red);
-  color:var(--red2);
-  cursor:pointer;
-}
-.window-controls span:hover{background:var(--red);color:#000}
-
-/* ===== TOP ===== */
-.top-window{margin-top:6px}
-.menu{
-  min-height:32px;
-  display:flex;
-  align-items:center;
-  gap:28px;
-  padding:5px 16px;
-  border-left:1px solid var(--red);
-  border-right:1px solid var(--red);
-  border-bottom:1px solid #4e0b12;
-  background:#050505;
-  color:#d93a4d;
-  font-size:14px;
-}
-.menu span{cursor:pointer}
-.menu span:hover{text-decoration:underline;color:#fff}
-
-.toolbar{
-  display:flex;
-  gap:28px;
-  padding:7px 18px;
-  border:1px solid var(--red);
-  border-top:0;
-  background:#050505;
-  font-family:var(--mono);
-}
-.tool{
-  text-align:center;
-  min-width:54px;
-  color:#d94a58;
-  font-size:11px;
-}
-.tool .ico{font-size:22px;display:block;margin-bottom:2px}
-
-/* ===== LAYOUT ===== */
-.main-layout{
-  display:grid;
-  grid-template-columns:230px minmax(0,1fr) 230px;
-  gap:9px;
-  margin-top:9px;
-}
-
-.column{display:flex;flex-direction:column;gap:9px}
-
-.panel{
-  background:
-    linear-gradient(135deg,#0b0b0bee,#030303f2),
-    repeating-linear-gradient(45deg,transparent 0 7px,#ffffff03 8px 9px);
-  border:1px solid var(--red);
-  box-shadow:0 0 15px #b5091d22, inset 0 0 20px #000;
-  position:relative;
-  overflow:hidden;
-}
-
-.panel:before{
-  content:"";
-  position:absolute;
-  inset:5px;
-  border:1px solid #8d122030;
-  pointer-events:none;
-}
-
-.panel-title{
-  padding:10px 12px 8px;
-  border-bottom:1px solid var(--red);
-  color:var(--red2);
-  font-family:var(--pixel);
-  font-size:9px;
-  letter-spacing:.5px;
-}
-
-/* ===== SIDEBARS ===== */
-.profile{
-  padding:16px;
-  text-align:center;
-  font-family:var(--pixel);
-  font-size:9px;
-  color:#fff;
-}
-.profile .heart{font-size:27px;color:var(--red2)}
-.profile-name{font-size:11px;margin-top:7px}
-
-.nav-list{padding:9px}
-.nav-list a{
-  display:block;
-  padding:9px 8px;
-  margin:2px 0;
-  color:#ddd;
-  font-size:13px;
-  border-left:2px solid transparent;
-}
-.nav-list a:hover,
-.nav-list a.active{
-  color:#fff;
-  background:linear-gradient(90deg,#650914,#210207);
-  border-left-color:var(--red2);
-}
-
-.data{padding:13px;font-size:12px;line-height:1.75;color:#bbb}
-.data b{color:#eee}
-
-.quote{
-  padding:18px 13px;
-  color:var(--red2);
-  line-height:1.6;
-  font-size:12px;
-  text-align:center;
-}
-
-.status{padding:13px;font-size:12px;line-height:1.9}
-.status .dot{
-  display:inline-block;
-  width:7px;height:7px;
-  border-radius:50%;
-  background:#f3263e;
-  box-shadow:0 0 8px #f3263e;
-  margin-right:7px;
-}
-
-.drive{
-  padding:15px;
-  text-align:center;
-}
-.drive .drive-icon{font-size:38px;margin-bottom:8px}
-.drive p{font-size:12px;color:#aaa}
-.retro-btn{
-  display:inline-block;
-  border:1px solid var(--red);
-  padding:9px 12px;
-  color:#fff;
-  background:#090203;
-  box-shadow:inset 0 0 0 1px #35070c;
-  font-family:var(--pixel);
-  font-size:8px;
-}
-.retro-btn:hover{
-  background:var(--red);
-  color:#000;
-}
-
-/* ===== HERO ===== */
-.hero{
-  min-height:435px;
-  position:relative;
-  background:
-    linear-gradient(90deg,#030303 0%,#050505cc 38%,#03030366 100%),
-    url("assets/hero.png") center/cover no-repeat;
-  border:1px solid var(--red);
-  overflow:hidden;
-}
-
-.hero:after{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:
-    linear-gradient(90deg,#000 0%,transparent 45%,#0008 100%),
-    radial-gradient(circle at 70% 45%,transparent 0 22%,#0008 70%);
-  pointer-events:none;
-}
-
-.hero-content{
-  position:relative;
-  z-index:2;
-  width:60%;
-  min-height:435px;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  padding:35px;
-}
-
-.hero-kicker{
-  color:var(--red2);
-  font-family:var(--pixel);
-  font-size:9px;
-  margin-bottom:18px;
-}
-
-.hero h1{
-  margin:0;
-  color:#eee;
-  font-family:var(--gothic);
-  font-size:clamp(55px,6vw,100px);
-  line-height:.78;
-  text-shadow:
-    3px 3px 0 #5e0711,
-    0 0 18px #ff1b3d44;
-}
-
-.hero h1 span{color:var(--red2)}
-
-.hero-sub{
-  margin-top:24px;
-  max-width:500px;
-  color:#ddd;
-  line-height:1.6;
-  font-size:14px;
-}
-
-.hero-bar{
-  display:flex;
-  flex-wrap:wrap;
-  gap:8px;
-  margin-top:25px;
-}
-.tag{
-  border:1px solid var(--red);
-  padding:6px 8px;
-  color:#ff5264;
-  font-family:var(--pixel);
-  font-size:7px;
-  background:#070000aa;
-}
-
-.hero-window{
-  position:absolute;
-  z-index:3;
-  right:18px;
-  bottom:18px;
-  width:min(300px,42%);
-}
-.hero-window .body{
-  padding:14px;
-  background:#050505e8;
-  border:1px solid var(--red);
-  border-top:0;
-  line-height:1.6;
-  font-size:12px;
-}
-
-/* ===== COURSE UNITS ===== */
-.units{
-  margin-top:9px;
-  padding:14px;
-}
-
-.section-heading{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  margin-bottom:12px;
-}
-.section-heading h2{
-  margin:0;
-  color:#eee;
-  font-family:var(--pixel);
-  font-size:12px;
-}
-.section-heading small{color:#9f4b55}
-
-.units-grid{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:9px;
-}
-
-.unit{
-  min-height:245px;
-  position:relative;
-  display:flex;
-  flex-direction:column;
-  justify-content:flex-end;
-  overflow:hidden;
-  border:1px solid var(--red);
-  background:#050505;
-  cursor:pointer;
-  transition:.2s ease;
-}
-
-.unit:hover{
-  transform:translateY(-4px);
-  box-shadow:0 0 18px #f21b382d;
-  border-color:#ff5366;
-}
-
-.unit-art{
-  position:absolute;
-  inset:0;
-  background:
-    linear-gradient(180deg,#0002 10%,#000 85%),
-    var(--art);
-  background-size:cover;
-  background-position:center;
-  filter:saturate(.7) contrast(1.15);
-  opacity:.62;
-  transition:.25s;
-}
-.unit:hover .unit-art{opacity:.82;transform:scale(1.04)}
-
-.unit-info{
-  position:relative;
-  z-index:2;
-  padding:13px;
-  background:linear-gradient(transparent,#000 30%);
-  min-height:125px;
-}
-.unit-number{
-  color:var(--red2);
-  font-family:var(--pixel);
-  font-size:11px;
-}
-.unit h3{
-  margin:10px 0 7px;
-  font-size:13px;
-  color:#fff;
-  line-height:1.25;
-}
-.unit p{margin:0 0 10px;color:#bbb;font-size:11px}
-
-.open-unit{
-  display:inline-block;
-  border:1px solid var(--red);
-  padding:7px 9px;
-  color:#fff;
-  font-family:var(--pixel);
-  font-size:7px;
-}
-
-/* ===== BOTTOM ===== */
-.bottom-strip{
-  margin-top:9px;
-  min-height:54px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  border:1px solid var(--red);
-  background:#050505;
-  color:#d92d43;
-  font-family:var(--pixel);
-  font-size:9px;
-  letter-spacing:1px;
-}
-
-/* ===== MODAL / OLD WINDOW ===== */
-.modal{
-  position:fixed;
-  inset:0;
-  z-index:200;
-  display:none;
-  align-items:flex-end;
-  justify-content:center;
-  padding:20px;
-  background:#000b;
-}
-.modal.open{display:flex}
-
-.modal-window{
-  width:min(920px,100%);
-  max-height:88vh;
-  overflow:auto;
-  background:#050505;
-  border:1px solid var(--red2);
-  box-shadow:0 0 40px #d10f2c55;
-  animation:slideUp .3s ease;
-}
-@keyframes slideUp{
-  from{transform:translateY(100px);opacity:0}
-  to{transform:translateY(0);opacity:1}
-}
-
-.modal-body{padding:22px}
-
-.modal-body h2{
-  margin:0 0 8px;
-  color:var(--red2);
-  font-family:var(--gothic);
-  font-size:46px;
-}
-.modal-body .description{
-  color:#bbb;
-  margin-bottom:18px;
-  line-height:1.5;
-}
-
-.weeks{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:9px;
-}
-
-.week{
-  border:1px solid #65101a;
-  padding:13px;
-  background:#090202;
-}
-.week strong{
-  color:var(--red2);
-  font-family:var(--pixel);
-  font-size:8px;
-}
-.week h4{margin:9px 0 5px;color:#eee;font-size:14px}
-.week p{margin:0;color:#999;font-size:12px;line-height:1.5}
-
-.close-modal{
-  border:1px solid var(--red);
-  background:#050505;
-  color:#fff;
-  padding:7px 11px;
-  cursor:pointer;
-}
-.close-modal:hover{background:var(--red);color:#000}
-
-/* ===== TASKBAR ===== */
-.taskbar{
-  position:fixed;
-  z-index:150;
-  left:0;right:0;bottom:0;
-  height:32px;
-  display:flex;
-  align-items:center;
-  background:#090909;
-  border-top:1px solid var(--red);
-  font-size:12px;
-  padding:2px 7px;
-}
-.start{
-  height:26px;
-  padding:0 14px;
-  display:flex;
-  align-items:center;
-  gap:6px;
-  background:#171717;
-  border:1px solid #777;
-  color:#fff;
-  font-weight:bold;
-}
-.task{
-  margin-left:5px;
-  height:26px;
-  min-width:190px;
-  display:flex;
-  align-items:center;
-  padding:0 10px;
-  border:1px solid #555;
-  background:#101010;
-}
-.clock{margin-left:auto;padding:0 12px}
-
-/* ===== DECORATIONS ===== */
-.decor{
-  position:fixed;
-  z-index:1;
-  color:#b41428;
-  opacity:.55;
-  pointer-events:none;
-  font-size:32px;
-}
-.d1{top:90px;right:5vw;transform:rotate(20deg)}
-.d2{top:48%;left:2vw;transform:rotate(-18deg)}
-.d3{bottom:70px;right:4vw}
-
-/* ===== RESPONSIVE ===== */
-@media(max-width:1100px){
-  .main-layout{grid-template-columns:185px minmax(0,1fr)}
-  .right-column{display:none}
-  .units-grid{grid-template-columns:repeat(2,1fr)}
-  .hero-content{width:70%}
-}
-
-@media(max-width:720px){
-  body{padding-bottom:35px}
-  .desktop{width:100%}
-  .menu{gap:12px;overflow:auto;white-space:nowrap}
-  .toolbar{gap:13px;overflow:auto}
-  .main-layout{display:block}
-  .left-column{display:none}
-  .hero{min-height:530px}
-  .hero-content{
-    width:100%;
-    min-height:530px;
-    padding:25px 20px;
-    justify-content:flex-start;
-    padding-top:55px;
-    background:linear-gradient(90deg,#000d,#0005);
-  }
-  .hero h1{font-size:58px}
-  .hero-window{
-    left:20px;
-    right:20px;
-    width:auto;
-    bottom:15px;
-  }
-  .units-grid{grid-template-columns:1fr}
-  .units{padding:10px}
-  .unit{min-height:210px}
-  .modal{padding:8px}
-  .modal-body{padding:15px}
-  .weeks{grid-template-columns:1fr}
-  .task{min-width:120px}
-}
-
-@media(prefers-reduced-motion:reduce){
-  *{scroll-behavior:auto!important;animation:none!important;transition:none!important}
-}
-</style>
+<title>Isabel Hurtado — Base de Datos II · UPLA</title>
+<meta name="description" content="Archivo digital de Isabel Juliana Hurtado Paucar para el curso Base de Datos II — Universidad Peruana Los Andes.">
+<link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-<div class="decor d1">⛓ ✦ 🦋</div>
-<div class="decor d2">✦ ☠</div>
-<div class="decor d3">♥ ✦ ⛓</div>
+<div class="decor d1">✦ ⛓</div>
+<div class="decor d2">☠ ✦</div>
+<div class="decor d3">♥ ⛓</div>
 
 <div class="desktop">
 
-  <header class="top-window">
+  <header>
     <div class="window-bar">
-      <span>▣ BASE DE DATOS II — UPLA</span>
-      <div class="window-controls">
-        <span>—</span><span>□</span><span>×</span>
-      </div>
+      <span>▣ ISABELHRTD.EXE — BASE DE DATOS II — UPLA</span>
+      <div class="window-controls"><span>—</span><span>□</span><span>×</span></div>
     </div>
 
-    <nav class="menu">
+    <nav class="menu" aria-label="Navegación superior">
       <span>Archivo</span>
       <span>Edición</span>
       <span>Ver</span>
@@ -623,13 +31,11 @@ button{font:inherit}
     </nav>
 
     <div class="toolbar">
-      <div class="tool"><span class="ico">←</span>Atrás</div>
-      <div class="tool"><span class="ico">→</span>Adelante</div>
-      <div class="tool"><span class="ico">⌂</span>Inicio</div>
-      <div class="tool"><span class="ico">⌕</span>Buscar</div>
-      <div class="tool"><span class="ico">☆</span>Favoritos</div>
-      <div class="tool"><span class="ico">✉</span>Correo</div>
-      <div class="tool"><span class="ico">◉</span>Internet</div>
+      <div class="tool active"><span class="ico">⌂</span>Inicio</div>
+      <div class="tool"><span class="ico">✦</span>Unidad I</div>
+      <div class="tool"><span class="ico">✦</span>Unidad II</div>
+      <div class="tool"><span class="ico">✦</span>Unidad III</div>
+      <div class="tool"><span class="ico">✦</span>Unidad IV</div>
     </div>
   </header>
 
@@ -639,18 +45,18 @@ button{font:inherit}
     <aside class="column left-column">
 
       <section class="panel profile">
-        <div class="heart">♥</div>
-        <div class="profile-name">isabelhrtd ♥</div>
+        <div class="mark">♥</div>
+        <div class="profile-name">isabelhrtd</div>
       </section>
 
       <section class="panel">
         <div class="panel-title">✦ NAVEGACIÓN</div>
         <nav class="nav-list">
-          <a href="#inicio" class="active">♥ Inicio</a>
-          <a href="#unidades">✦ Unidad I</a>
-          <a href="#unidades">✦ Unidad II</a>
-          <a href="#unidades">✦ Unidad III</a>
-          <a href="#unidades">✦ Unidad IV</a>
+          <a href="index.html" class="active">♥ Inicio</a>
+          <a href="unidad1.html">✦ Unidad I</a>
+          <a href="unidad2.html">✦ Unidad II</a>
+          <a href="unidad3.html">✦ Unidad III</a>
+          <a href="unidad4.html">✦ Unidad IV</a>
           <a href="#curso">✦ Sílabo</a>
           <a href="#drive">✦ Archivos</a>
         </nav>
@@ -677,7 +83,7 @@ button{font:inherit}
 
       <section class="panel quote">
         “El conocimiento también es una forma de poder.”
-        <br><br>♥ ✦ ☠ ✦ ♥
+        <span class="glyphs">♥ ✦ ☠ ✦ ♥</span>
       </section>
 
     </aside>
@@ -685,122 +91,117 @@ button{font:inherit}
     <!-- CENTRO -->
     <section class="column">
 
+      <!-- PRESENTACIÓN PERSONAL -->
       <section class="hero" id="inicio">
+        <div class="hero-grid">
 
-        <div class="hero-content">
-          <div class="hero-kicker">♥ UNIVERSIDAD PERUANA LOS ANDES · 2026-I ♥</div>
+          <figure class="photo-frame">
+            <!-- Reemplaza esta caja por: <img src="assets/isabel.jpg" alt="Isabel Juliana Hurtado Paucar"> -->
+            <div class="photo-placeholder">
+              <span class="mark">♥</span>
+              COLOCA AQUÍ<br>assets/isabel.jpg
+            </div>
+          </figure>
 
-          <h1>Base de<br><span>Datos II</span></h1>
-
-          <div class="hero-sub">
-            Ingeniería de Sistemas y Computación<br>
-            Archivo digital de trabajos, prácticas,
-            infografías y evidencias del curso.
+          <div>
+            <div class="hero-kicker">♥ ARCHIVO PERSONAL · UPLA 2026-I ♥</div>
+            <h1>Isabel Juliana<br>Hurtado Paucar</h1>
+            <p class="role">Estudiante de <b>Ingeniería de Sistemas y Computación</b><br>Universidad Peruana Los Andes</p>
+            <p class="hero-sub">
+              Este es mi archivo digital de trabajo para la universidad: aquí voy guardando
+              el sílabo, los avances y las evidencias del semestre a medida que los desarrollo.
+              Bienvenido(a) a mi rincón de la red.
+            </p>
+            <div class="hero-course-note">
+              Actualmente curso <b>Base de Datos II</b> — este sitio reúne el material,
+              las unidades y los trabajos del curso.
+            </div>
           </div>
 
-          <div class="hero-bar">
-            <span class="tag">16 SEMANAS</span>
-            <span class="tag">4 UNIDADES</span>
-            <span class="tag">SQL SERVER</span>
-            <span class="tag">UPLA</span>
-          </div>
         </div>
-
-        <div class="hero-window">
-          <div class="window-bar">
-            <span>BIENVENIDO(A) ♥</span>
-            <div class="window-controls"><span>×</span></div>
-          </div>
-          <div class="body">
-            Este es mi archivo digital de Base de Datos II.
-            Aquí encontrarás el sílabo, las unidades,
-            contenidos y trabajos desarrollados durante
-            el semestre.<br><br>
-            — Isabel Juliana Hurtado Paucar
-          </div>
-        </div>
-
       </section>
 
+      <!-- FRANJA DEL CURSO -->
+      <section class="panel course-strip">
+        <h2>Base de <span>Datos II</span></h2>
+        <div class="hero-bar">
+          <span class="tag">16 SEMANAS</span>
+          <span class="tag">4 UNIDADES</span>
+          <span class="tag">SQL SERVER</span>
+          <span class="tag">UPLA</span>
+        </div>
+      </section>
+
+      <!-- UNIDADES -->
       <section class="panel units" id="unidades">
         <div class="section-heading">
           <h2>✦ UNIDADES DEL CURSO</h2>
-          <small>( 4 UNIDADES )</small>
+          <small>( 4 unidades )</small>
         </div>
 
         <div class="units-grid">
 
-          <article class="unit" onclick="openUnit(1)"
-            style="--art:url('assets/unit1.jpg')">
-            <div class="unit-art"></div>
-            <div class="unit-info">
+          <a class="unit-card" href="unidad1.html">
+            <span class="unit-glyph">✦</span>
+            <div class="unit-card-info">
               <div class="unit-number">01</div>
-              <h3>ARQUITECTURAS DE BASES DE DATOS</h3>
+              <h3>Arquitecturas de Bases de Datos</h3>
               <p>Semanas 01 — 04</p>
               <span class="open-unit">VER UNIDAD »</span>
             </div>
-          </article>
+          </a>
 
-          <article class="unit" onclick="openUnit(2)"
-            style="--art:url('assets/unit2.jpg')">
-            <div class="unit-art"></div>
-            <div class="unit-info">
+          <a class="unit-card" href="unidad2.html">
+            <span class="unit-glyph">⛁</span>
+            <div class="unit-card-info">
               <div class="unit-number">02</div>
-              <h3>ADMINISTRACIÓN DE INSTANCIAS Y ALMACENAMIENTO</h3>
+              <h3>Administración de Instancias y Almacenamiento</h3>
               <p>Semanas 05 — 08</p>
               <span class="open-unit">VER UNIDAD »</span>
             </div>
-          </article>
+          </a>
 
-          <article class="unit" onclick="openUnit(3)"
-            style="--art:url('assets/unit3.jpg')">
-            <div class="unit-art"></div>
-            <div class="unit-info">
+          <a class="unit-card" href="unidad3.html">
+            <span class="unit-glyph">✚</span>
+            <div class="unit-card-info">
               <div class="unit-number">03</div>
-              <h3>SEGURIDAD CORPORATIVA Y ALTA DISPONIBILIDAD</h3>
+              <h3>Seguridad Corporativa y Alta Disponibilidad</h3>
               <p>Semanas 09 — 12</p>
               <span class="open-unit">VER UNIDAD »</span>
             </div>
-          </article>
+          </a>
 
-          <article class="unit" onclick="openUnit(4)"
-            style="--art:url('assets/unit4.jpg')">
-            <div class="unit-art"></div>
-            <div class="unit-info">
+          <a class="unit-card" href="unidad4.html">
+            <span class="unit-glyph">◈</span>
+            <div class="unit-card-info">
               <div class="unit-number">04</div>
-              <h3>MONITOREO Y OPTIMIZACIÓN</h3>
+              <h3>Monitoreo y Optimización</h3>
               <p>Semanas 13 — 16</p>
               <span class="open-unit">VER UNIDAD »</span>
             </div>
-          </article>
+          </a>
 
         </div>
       </section>
 
-      <div class="bottom-strip">
-        — 16 SEMANAS / 4 UNIDADES / 1 OBJETIVO —
-      </div>
+      <div class="bottom-strip">— 16 SEMANAS / 4 UNIDADES / 1 OBJETIVO —</div>
 
     </section>
 
     <!-- DERECHA -->
     <aside class="column right-column">
 
-      <section class="panel">
+      <section class="panel now-playing">
         <div class="panel-title">✦ NOW PLAYING</div>
         <div class="data">
-          My Chemical Romance<br>
-          — Welcome to the Black Parade
-          <br><br>
-          ◀ ❚❚ ▶ ━━━━━●
+          My Chemical Romance<br>— Welcome to the Black Parade
+          <div class="bars">◀ ❚❚ ▶ ━━━━━●</div>
         </div>
       </section>
 
       <section class="panel">
         <div class="panel-title">✦ SEMESTRE</div>
-        <div class="data" style="font-family:var(--pixel);font-size:9px;color:var(--red2)">
-          2026 — I ♥
-        </div>
+        <div class="semestre-box">2026 — I ♥</div>
       </section>
 
       <section class="panel">
@@ -814,7 +215,7 @@ button{font:inherit}
 
       <section class="panel quote">
         “Los datos también cuentan historias.”
-        <br><br>☆ ♥ ☆
+        <span class="glyphs">☆ ♥ ☆</span>
       </section>
 
       <section class="panel" id="drive">
@@ -822,8 +223,8 @@ button{font:inherit}
         <div class="drive">
           <div class="drive-icon">◈</div>
           <p>Trabajos, infografías y evidencias almacenados en Google Drive.</p>
-          <!-- Reemplaza # con tu enlace real -->
-          <a class="retro-btn" href="#" target="_blank">IR AL DRIVE »</a>
+          <a class="retro-btn is-placeholder" href="#" target="_blank" rel="noopener">IR AL DRIVE »</a>
+          <div class="placeholder-note">Reemplaza el href="#" por tu enlace real de Drive.</div>
         </div>
       </section>
 
@@ -832,121 +233,12 @@ button{font:inherit}
   </main>
 </div>
 
-<!-- VENTANA DE UNIDAD -->
-<div class="modal" id="unitModal">
-  <div class="modal-window">
-
-    <div class="window-bar">
-      <span id="modalTitle">UNIDAD I</span>
-      <div class="window-controls">
-        <span onclick="closeUnit()">×</span>
-      </div>
-    </div>
-
-    <div class="modal-body">
-      <h2 id="modalHeading">Unidad I</h2>
-      <div class="description" id="modalDescription"></div>
-      <div class="weeks" id="weeks"></div>
-      <br>
-      <button class="close-modal" onclick="closeUnit()">CERRAR VENTANA ×</button>
-    </div>
-
-  </div>
-</div>
-
 <div class="taskbar">
   <div class="start">▣ Inicio</div>
-  <div class="task">▣ BASE DE DATOS II — UPLA</div>
+  <div class="task">▣ ISABELHRTD — BASE DE DATOS II</div>
   <div class="clock" id="clock">11:59 PM</div>
 </div>
 
-<script>
-const units = {
-  1:{
-    title:"UNIDAD I",
-    heading:"Arquitecturas de Bases de Datos",
-    description:"Identificación de arquitecturas, configuración del entorno corporativo y construcción de una infraestructura inicial de datos.",
-    weeks:[
-      ["SEMANA 01","Formulación del Proyecto y Selección de la Arquitectura"],
-      ["SEMANA 02","Despliegue y Configuración de Motores de Datos"],
-      ["SEMANA 03","Modelamiento Físico y Mecanismos de Integración"],
-      ["SEMANA 04","Sustentación y Validación de la Infraestructura de Datos"]
-    ]
-  },
-  2:{
-    title:"UNIDAD II",
-    heading:"Administración de Instancias y Almacenamiento",
-    description:"Gestión de instancias, memoria, estructuras físicas y lógicas de almacenamiento e indexación para grandes volúmenes de datos.",
-    weeks:[
-      ["SEMANA 05","Configuración de la Instancia y Gestión de Memoria"],
-      ["SEMANA 06","Arquitectura Física de Almacenamiento y Distribución de Archivos"],
-      ["SEMANA 07","Organización de Esquemas Lógicos y Estrategias de Indexación"],
-      ["SEMANA 08","Sustentación y Pruebas de Carga"]
-    ]
-  },
-  3:{
-    title:"UNIDAD III",
-    heading:"Seguridad Corporativa y Alta Disponibilidad",
-    description:"Conectividad de red, seguridad, privilegios, auditoría, copias de seguridad y recuperación ante fallos.",
-    weeks:[
-      ["SEMANA 09","Configuración de Conectividad de Red y Seguridad"],
-      ["SEMANA 10","Gestión de Privilegios, Roles y Auditoría"],
-      ["SEMANA 11","Estrategias de Backups Avanzados y Automatización"],
-      ["SEMANA 12","Recuperación ante Fallos y Planes de Contingencia"]
-    ]
-  },
-  4:{
-    title:"UNIDAD IV",
-    heading:"Monitoreo, Optimización y Recuperación",
-    description:"Monitoreo de servidores, diagnóstico, tuning de consultas y tecnologías de recuperación histórica.",
-    weeks:[
-      ["SEMANA 13","Auditoría, Monitoreo de Eventos y Diagnóstico"],
-      ["SEMANA 14","Afinamiento y Optimización del Desempeño"],
-      ["SEMANA 15","Implementación de Tecnologías de Recuperación Flashback"],
-      ["SEMANA 16","Sustentación Final e Integración del Proyecto"]
-    ]
-  }
-};
-
-function openUnit(n){
-  const u=units[n];
-  document.getElementById("modalTitle").textContent=u.title+" ♥";
-  document.getElementById("modalHeading").textContent=u.heading;
-  document.getElementById("modalDescription").textContent=u.description;
-
-  document.getElementById("weeks").innerHTML=u.weeks.map((w,i)=>`
-    <div class="week">
-      <strong>${w[0]}</strong>
-      <h4>${w[1]}</h4>
-      <p>Contenido y evidencias de la semana.</p>
-    </div>
-  `).join("");
-
-  document.getElementById("unitModal").classList.add("open");
-  document.body.style.overflow="hidden";
-}
-
-function closeUnit(){
-  document.getElementById("unitModal").classList.remove("open");
-  document.body.style.overflow="";
-}
-
-document.getElementById("unitModal").addEventListener("click",e=>{
-  if(e.target.id==="unitModal") closeUnit();
-});
-
-document.addEventListener("keydown",e=>{
-  if(e.key==="Escape") closeUnit();
-});
-
-function updateClock(){
-  const now=new Date();
-  document.getElementById("clock").textContent=
-    now.toLocaleTimeString("es-PE",{hour:"2-digit",minute:"2-digit"});
-}
-updateClock();
-setInterval(updateClock,1000);
-</script>
-
+<script src="script.js"></script>
 </body>
 </html>
