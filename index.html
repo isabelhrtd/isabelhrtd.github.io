@@ -9,34 +9,20 @@
 </head>
 <body>
 
+<div id="bg"><!-- goterones generados por script.js; ver instrucciones ahí para usar un video/gif real --></div>
+
 <div class="decor d1">✦ ⛓</div>
 <div class="decor d2">☠ ✦</div>
 <div class="decor d3">♥ ⛓</div>
 
 <div class="desktop">
 
-  <header>
-    <div class="window-bar">
-      <span>▣ ISABELHRTD.EXE — BASE DE DATOS II — UPLA</span>
-      <div class="window-controls"><span>—</span><span>□</span><span>×</span></div>
-    </div>
-
-    <nav class="menu" aria-label="Navegación superior">
-      <span>Archivo</span>
-      <span>Edición</span>
-      <span>Ver</span>
-      <span>Favoritos</span>
-      <span>Herramientas</span>
-      <span>Ayuda</span>
+  <header class="topbar">
+    <span class="site-title">ISABEL H.P. — BASE DE DATOS II</span>
+    <nav aria-label="Navegación principal">
+      <a href="index.html" class="active">Inicio</a>
+      <a href="unidades.html">Unidades</a>
     </nav>
-
-    <div class="toolbar">
-      <div class="tool active"><span class="ico">⌂</span>Inicio</div>
-      <div class="tool"><span class="ico">✦</span>Unidad I</div>
-      <div class="tool"><span class="ico">✦</span>Unidad II</div>
-      <div class="tool"><span class="ico">✦</span>Unidad III</div>
-      <div class="tool"><span class="ico">✦</span>Unidad IV</div>
-    </div>
   </header>
 
   <main class="main-layout">
@@ -44,41 +30,35 @@
     <!-- IZQUIERDA -->
     <aside class="column left-column">
 
-      <section class="panel profile">
-        <div class="mark">♥</div>
-        <div class="profile-name">isabelhrtd</div>
+      <section class="panel panel-free">
+        <div class="free-inner">Espacio libre<br>— foto, sticker o banner</div>
       </section>
 
       <section class="panel">
-        <div class="panel-title">✦ NAVEGACIÓN</div>
-        <nav class="nav-list">
-          <a href="index.html" class="active">♥ Inicio</a>
-          <a href="unidad1.html">✦ Unidad I</a>
-          <a href="unidad2.html">✦ Unidad II</a>
-          <a href="unidad3.html">✦ Unidad III</a>
-          <a href="unidad4.html">✦ Unidad IV</a>
-          <a href="#curso">✦ Sílabo</a>
-          <a href="#drive">✦ Archivos</a>
-        </nav>
+        <div class="panel-title">✦ DOCENTE</div>
+        <div class="docente">
+          <!-- Reemplaza por: <div class="docframe"><img src="assets/docente.jpg" alt="..."></div> -->
+          <div class="docframe">FOTO<br>DOCENTE</div>
+          <div class="docinfo">
+            <b>Mg. Raúl Enrique<br>Fernández Bejarano</b>
+            <span class="mail">d.rfernandezb@ms.upla.edu.pe</span>
+          </div>
+        </div>
       </section>
 
-      <section class="panel" id="curso">
+      <section class="panel">
         <div class="panel-title">✦ DATOS DEL CURSO</div>
         <div class="data">
           <b>Código:</b> 332151<br>
           <b>Créditos:</b> 03<br>
           <b>Horas:</b> 05 (1T / 4P)<br>
-          <b>Semestre:</b> 2026-I<br>
+          <b>Semestre:</b> 2026-II<br>
           <b>Plan:</b> 2022
         </div>
       </section>
 
-      <section class="panel">
-        <div class="panel-title">✦ DOCENTE</div>
-        <div class="data">
-          <b>Mg. Raúl Enrique<br>Fernández Bejarano</b><br><br>
-          d.rfernandezb@ms.upla.edu.pe
-        </div>
+      <section class="panel panel-free">
+        <div class="free-inner">Espacio libre<br>— más contenido visual</div>
       </section>
 
       <section class="panel quote">
@@ -92,95 +72,74 @@
     <section class="column">
 
       <!-- PRESENTACIÓN PERSONAL -->
-      <section class="hero" id="inicio">
-        <div class="hero-grid">
-
-          <figure class="photo-frame">
-            <!-- Reemplaza esta caja por: <img src="assets/isabel.jpg" alt="Isabel Juliana Hurtado Paucar"> -->
-            <div class="photo-placeholder">
-              <span class="mark">♥</span>
-              COLOCA AQUÍ<br>assets/isabel.jpg
-            </div>
-          </figure>
-
-          <div>
-            <div class="hero-kicker">♥ ARCHIVO PERSONAL · UPLA 2026-I ♥</div>
-            <h1>Isabel Juliana<br>Hurtado Paucar</h1>
-            <p class="role">Estudiante de <b>Ingeniería de Sistemas y Computación</b><br>Universidad Peruana Los Andes</p>
-            <p class="hero-sub">
-              Este es mi archivo digital de trabajo para la universidad: aquí voy guardando
-              el sílabo, los avances y las evidencias del semestre a medida que los desarrollo.
-              Bienvenido(a) a mi rincón de la red.
-            </p>
-            <div class="hero-course-note">
-              Actualmente curso <b>Base de Datos II</b> — este sitio reúne el material,
-              las unidades y los trabajos del curso.
-            </div>
+      <section class="panel hero" id="inicio">
+        <figure class="photo-frame">
+          <!-- Reemplaza por: <img src="assets/isabel.jpg" alt="Isabel Juliana Hurtado Paucar"> -->
+          <div class="photo-placeholder">
+            <span class="mark">♥</span>
+            COLOCA AQUÍ<br>assets/isabel.jpg
           </div>
+        </figure>
 
+        <div>
+          <div class="hero-kicker">♥ ARCHIVO PERSONAL · UPLA 2026-II ♥</div>
+          <h1>Isabel Juliana<br>Hurtado Paucar</h1>
+          <p class="role">Estudiante de <b>Ingeniería de Sistemas y Computación</b><br>Universidad Peruana Los Andes</p>
+          <p class="hero-sub">
+            Este es mi archivo digital de trabajo para la universidad: aquí voy guardando
+            el sílabo, los avances y las evidencias del semestre a medida que los desarrollo.
+          </p>
+          <div class="hero-course-note">
+            Actualmente curso <b>Base de Datos II</b> — este sitio reúne el material,
+            las unidades y los trabajos del curso.
+          </div>
         </div>
       </section>
 
-      <!-- FRANJA DEL CURSO -->
-      <section class="panel course-strip">
-        <h2>Base de <span>Datos II</span></h2>
-        <div class="hero-bar">
-          <span class="tag">16 SEMANAS</span>
-          <span class="tag">4 UNIDADES</span>
-          <span class="tag">SQL SERVER</span>
-          <span class="tag">UPLA</span>
-        </div>
-      </section>
+      <div class="tags">
+        <span class="tag">16 SEMANAS</span>
+        <span class="tag">4 UNIDADES</span>
+        <span class="tag">SQL SERVER</span>
+        <span class="tag">UPLA</span>
+      </div>
 
       <!-- UNIDADES -->
-      <section class="panel units" id="unidades">
+      <section class="panel" id="unidades">
         <div class="section-heading">
           <h2>✦ UNIDADES DEL CURSO</h2>
-          <small>( 4 unidades )</small>
+          <small>( 4 unidades — <a href="unidades.html" style="color:var(--red-bright)">ver todas »</a> )</small>
         </div>
 
-        <div class="units-grid">
-
-          <a class="unit-card" href="unidad1.html">
-            <span class="unit-glyph">✦</span>
-            <div class="unit-card-info">
-              <div class="unit-number">01</div>
-              <h3>Arquitecturas de Bases de Datos</h3>
-              <p>Semanas 01 — 04</p>
-              <span class="open-unit">VER UNIDAD »</span>
+        <div class="rowlist">
+          <a class="rowcard" href="unidad1.html">
+            <!-- Para poner imagen: style="--img:url('assets/unidad1.jpg')" en .imgfade -->
+            <div class="imgfade"></div>
+            <div class="txt">
+              <span class="tagnum">01 · UNIDAD I</span>
+              <div class="titletxt">Arquitecturas de Bases de Datos — Semanas 01–04</div>
             </div>
           </a>
-
-          <a class="unit-card" href="unidad2.html">
-            <span class="unit-glyph">⛁</span>
-            <div class="unit-card-info">
-              <div class="unit-number">02</div>
-              <h3>Administración de Instancias y Almacenamiento</h3>
-              <p>Semanas 05 — 08</p>
-              <span class="open-unit">VER UNIDAD »</span>
+          <a class="rowcard" href="unidad2.html">
+            <div class="imgfade"></div>
+            <div class="txt">
+              <span class="tagnum">02 · UNIDAD II</span>
+              <div class="titletxt">Administración de Instancias y Almacenamiento — Semanas 05–08</div>
             </div>
           </a>
-
-          <a class="unit-card" href="unidad3.html">
-            <span class="unit-glyph">✚</span>
-            <div class="unit-card-info">
-              <div class="unit-number">03</div>
-              <h3>Seguridad Corporativa y Alta Disponibilidad</h3>
-              <p>Semanas 09 — 12</p>
-              <span class="open-unit">VER UNIDAD »</span>
+          <a class="rowcard" href="unidad3.html">
+            <div class="imgfade"></div>
+            <div class="txt">
+              <span class="tagnum">03 · UNIDAD III</span>
+              <div class="titletxt">Seguridad Corporativa y Alta Disponibilidad — Semanas 09–12</div>
             </div>
           </a>
-
-          <a class="unit-card" href="unidad4.html">
-            <span class="unit-glyph">◈</span>
-            <div class="unit-card-info">
-              <div class="unit-number">04</div>
-              <h3>Monitoreo y Optimización</h3>
-              <p>Semanas 13 — 16</p>
-              <span class="open-unit">VER UNIDAD »</span>
+          <a class="rowcard" href="unidad4.html">
+            <div class="imgfade"></div>
+            <div class="txt">
+              <span class="tagnum">04 · UNIDAD IV</span>
+              <div class="titletxt">Monitoreo y Optimización — Semanas 13–16</div>
             </div>
           </a>
-
         </div>
       </section>
 
@@ -201,21 +160,24 @@
 
       <section class="panel">
         <div class="panel-title">✦ SEMESTRE</div>
-        <div class="semestre-box">2026 — I ♥</div>
+        <div class="semestre-box">2026 — II ♥</div>
       </section>
 
-      <section class="panel">
-        <div class="panel-title">✦ ESTADO</div>
-        <div class="status">
-          <div><span class="dot"></span>Conectado</div>
-          <div><span class="dot"></span>En proceso...</div>
-          <div><span class="dot"></span>Base de Datos II</div>
-        </div>
+      <section class="panel panel-free">
+        <div class="free-inner">Espacio libre<br>— foto o decoración</div>
       </section>
 
       <section class="panel quote">
         “Los datos también cuentan historias.”
         <span class="glyphs">☆ ♥ ☆</span>
+      </section>
+
+      <section class="panel">
+        <div class="panel-title">✦ SÍLABO</div>
+        <div class="silabo-box">
+          <span>Descarga el sílabo del curso</span>
+          <a class="retro-btn is-placeholder" href="#">↓ PDF</a>
+        </div>
       </section>
 
       <section class="panel" id="drive">
@@ -231,12 +193,6 @@
     </aside>
 
   </main>
-</div>
-
-<div class="taskbar">
-  <div class="start">▣ Inicio</div>
-  <div class="task">▣ ISABELHRTD — BASE DE DATOS II</div>
-  <div class="clock" id="clock">11:59 PM</div>
 </div>
 
 <script src="script.js"></script>

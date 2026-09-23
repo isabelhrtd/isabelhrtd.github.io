@@ -199,7 +199,32 @@ const UNITS = {
 };
 
 /* ---------------------------------------------------------
-   Reloj de la taskbar
+   Fondo animado — goterones de sangre (CSS/JS)
+   Para usar un video o GIF real en vez de esto:
+   1) En el HTML, dentro de <div id="bg">, agrega:
+        <video autoplay muted loop playsinline>
+          <source src="assets/fondo-sangre.mp4" type="video/mp4">
+        </video>
+      o bien: <img class="bg-media" src="assets/fondo-sangre.gif">
+   2) Elimina o comenta la llamada a initBackground() más abajo,
+      así no se generan los goterones CSS encima del video.
+   --------------------------------------------------------- */
+function initBackground(){
+  const bg=document.getElementById("bg");
+  if(!bg) return;
+  for(let i=0;i<24;i++){
+    const d=document.createElement("div");
+    d.className="drip";
+    d.style.left=Math.random()*100+"%";
+    d.style.height=(30+Math.random()*50)+"px";
+    d.style.animationDuration=(2.4+Math.random()*3)+"s";
+    d.style.animationDelay=(Math.random()*4)+"s";
+    bg.appendChild(d);
+  }
+}
+
+/* ---------------------------------------------------------
+   Reloj de la taskbar (si existe en la página)
    --------------------------------------------------------- */
 function updateClock(){
   const el=document.getElementById("clock");
@@ -207,23 +232,33 @@ function updateClock(){
   const now=new Date();
   el.textContent=now.toLocaleTimeString("es-PE",{hour:"2-digit",minute:"2-digit"});
 }
-updateClock();
-setInterval(updateClock,1000);
+
+document.addEventListener("DOMContentLoaded",()=>{
+  initBackground();
+  updateClock();
+  setInterval(updateClock,1000);
+});
 
 /* ---------------------------------------------------------
-   Render de las 4 tarjetas de semana en unidadN.html
+   Render de las 4 filas de semana en unidadN.html
    Llamado desde cada página de unidad con su número.
+
+   Para poner una imagen propia en una semana, agrega la
+   propiedad "img" a esa semana en el objeto UNITS de arriba,
+   por ejemplo:  img:"assets/semana01.jpg"
    --------------------------------------------------------- */
 function renderWeekCards(unitId){
   const host=document.getElementById("weeksList");
   if(!host) return;
   const unit=UNITS[unitId];
   host.innerHTML=unit.weeks.map((w,i)=>`
-    <button class="week-card" type="button" onclick="openWeek(${unitId},${i})">
-      <span class="week-tag">${w.n}</span>
-      <h3>${w.title}</h3>
-      <span class="week-open">ABRIR VENTANA »</span>
-    </button>
+    <div class="rowcard" onclick="openWeek(${unitId},${i})">
+      <div class="imgfade" style="${w.img?`--img:url('${w.img}')`:""}"></div>
+      <div class="txt">
+        <span class="tagnum">${w.n}</span>
+        <div class="titletxt">${w.title}</div>
+      </div>
+    </div>
   `).join("");
 }
 
@@ -237,7 +272,6 @@ function openWeek(unitId,weekIndex){
   document.getElementById("modalBarTitle").textContent="✦ "+week.n+" — "+unit.title;
 
   document.getElementById("modalContentBody").innerHTML=`
-    <div class="week-eyebrow">${unit.title} · ${week.n}</div>
     <h2>${week.title}</h2>
 
     <div class="modal-section">
@@ -265,8 +299,6 @@ function openWeek(unitId,weekIndex){
       </div>
       <div class="placeholder-note">Los enlaces se activarán cuando se agreguen los recursos reales de Drive.</div>
     </div>
-
-    <button class="close-modal" type="button" onclick="closeWeek()">CERRAR VENTANA ×</button>
   `;
 
   const overlay=document.getElementById("weekModal");

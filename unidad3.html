@@ -9,34 +9,19 @@
 </head>
 <body>
 
+<div id="bg"></div>
 <div class="decor d1">✦ ⛓</div>
 <div class="decor d2">☠ ✦</div>
 <div class="decor d3">♥ ⛓</div>
 
 <div class="desktop">
 
-  <header>
-    <div class="window-bar">
-      <span>▣ UNIDAD III — BASE DE DATOS II — UPLA</span>
-      <div class="window-controls"><span>—</span><span>□</span><span>×</span></div>
-    </div>
-
-    <nav class="menu" aria-label="Navegación superior">
-      <span>Archivo</span>
-      <span>Edición</span>
-      <span>Ver</span>
-      <span>Favoritos</span>
-      <span>Herramientas</span>
-      <span>Ayuda</span>
+  <header class="topbar">
+    <span class="site-title">ISABEL H.P. — BASE DE DATOS II</span>
+    <nav aria-label="Navegación principal">
+      <a href="index.html">Inicio</a>
+      <a href="unidades.html" class="active">Unidades</a>
     </nav>
-
-    <div class="toolbar">
-      <div class="tool"><span class="ico">⌂</span>Inicio</div>
-      <div class="tool "><span class="ico">✦</span>Unidad I</div>
-      <div class="tool "><span class="ico">✦</span>Unidad II</div>
-      <div class="tool active"><span class="ico">✦</span>Unidad III</div>
-      <div class="tool "><span class="ico">✦</span>Unidad IV</div>
-    </div>
   </header>
 
   <main class="main-layout">
@@ -44,22 +29,19 @@
     <!-- IZQUIERDA -->
     <aside class="column left-column">
 
-      <section class="panel profile">
-        <div class="mark">♥</div>
-        <div class="profile-name">isabelhrtd</div>
+      <section class="panel panel-free">
+        <div class="free-inner">Espacio libre<br>— foto, sticker o banner</div>
       </section>
 
       <section class="panel">
-        <div class="panel-title">✦ NAVEGACIÓN</div>
-        <nav class="nav-list">
-          <a href="index.html">♥ Inicio</a>
-          <a href="unidad1.html" class="">✦ Unidad I</a>
-          <a href="unidad2.html" class="">✦ Unidad II</a>
-          <a href="unidad3.html" class="active">✦ Unidad III</a>
-          <a href="unidad4.html" class="">✦ Unidad IV</a>
-          <a href="index.html#curso">✦ Sílabo</a>
-          <a href="index.html#drive">✦ Archivos</a>
-        </nav>
+        <div class="panel-title">✦ DOCENTE</div>
+        <div class="docente">
+          <div class="docframe">FOTO<br>DOCENTE</div>
+          <div class="docinfo">
+            <b>Mg. Raúl Enrique<br>Fernández Bejarano</b>
+            <span class="mail">d.rfernandezb@ms.upla.edu.pe</span>
+          </div>
+        </div>
       </section>
 
       <section class="panel">
@@ -68,17 +50,13 @@
           <b>Código:</b> 332151<br>
           <b>Créditos:</b> 03<br>
           <b>Horas:</b> 05 (1T / 4P)<br>
-          <b>Semestre:</b> 2026-I<br>
+          <b>Semestre:</b> 2026-II<br>
           <b>Plan:</b> 2022
         </div>
       </section>
 
-      <section class="panel">
-        <div class="panel-title">✦ DOCENTE</div>
-        <div class="data">
-          <b>Mg. Raúl Enrique<br>Fernández Bejarano</b><br><br>
-          d.rfernandezb@ms.upla.edu.pe
-        </div>
+      <section class="panel panel-free">
+        <div class="free-inner">Espacio libre<br>— más contenido visual</div>
       </section>
 
       <section class="panel quote">
@@ -92,7 +70,7 @@
     <section class="column">
 
       <section class="panel unit-hero">
-        <a class="back-link" href="index.html">« VOLVER AL INICIO</a>
+        <a class="back-link" href="unidades.html">« VOLVER A UNIDADES</a>
 
         <div class="unit-number">03 · UNIDAD III</div>
         <h1>SEGURIDAD CORPORATIVA Y ALTA DISPONIBILIDAD</h1>
@@ -114,12 +92,12 @@
         </div>
       </section>
 
-      <section class="panel weeks-section">
+      <section class="panel">
         <div class="section-heading">
           <h2>✦ SEMANAS</h2>
-          <small>( clic para abrir el contenido )</small>
+          <small>( clic sobre una semana para abrir su contenido )</small>
         </div>
-        <div class="weeks-list" id="weeksList"><!-- generado por script.js --></div>
+        <div class="rowlist" id="weeksList"><!-- generado por script.js --></div>
       </section>
 
       <div class="bottom-strip">— UNIDAD III / SEMANAS 09 — 12 —</div>
@@ -139,21 +117,24 @@
 
       <section class="panel">
         <div class="panel-title">✦ SEMESTRE</div>
-        <div class="semestre-box">2026 — I ♥</div>
+        <div class="semestre-box">2026 — II ♥</div>
       </section>
 
-      <section class="panel">
-        <div class="panel-title">✦ ESTADO</div>
-        <div class="status">
-          <div><span class="dot"></span>Conectado</div>
-          <div><span class="dot"></span>En proceso...</div>
-          <div><span class="dot"></span>UNIDAD III</div>
-        </div>
+      <section class="panel panel-free">
+        <div class="free-inner">Espacio libre<br>— foto o decoración</div>
       </section>
 
       <section class="panel quote">
         “Los datos también cuentan historias.”
         <span class="glyphs">☆ ♥ ☆</span>
+      </section>
+
+      <section class="panel">
+        <div class="panel-title">✦ SÍLABO</div>
+        <div class="silabo-box">
+          <span>Descarga el sílabo del curso</span>
+          <a class="retro-btn is-placeholder" href="#">↓ PDF</a>
+        </div>
       </section>
 
       <section class="panel">
@@ -171,21 +152,15 @@
   </main>
 </div>
 
-<!-- VENTANA EMERGENTE DE SEMANA -->
+<!-- VENTANA EMERGENTE DE SEMANA — cierra solo con la X -->
 <div class="modal-overlay" id="weekModal">
   <div class="modal-window">
-    <div class="window-bar">
+    <div class="modal-topbar">
       <span id="modalBarTitle">♥ SEMANA</span>
-      <div class="window-controls"><span onclick="closeWeek()">×</span></div>
+      <span class="mx" onclick="closeWeek()">×</span>
     </div>
     <div class="modal-body" id="modalContentBody"><!-- generado por script.js --></div>
   </div>
-</div>
-
-<div class="taskbar">
-  <div class="start">▣ Inicio</div>
-  <div class="task">▣ UNIDAD III — BASE DE DATOS II</div>
-  <div class="clock" id="clock">11:59 PM</div>
 </div>
 
 <script src="script.js"></script>
