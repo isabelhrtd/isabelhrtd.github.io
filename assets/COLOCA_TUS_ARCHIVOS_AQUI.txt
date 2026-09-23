@@ -1,0 +1,75 @@
+Esta carpeta es donde va todo tu material real.
+
+FOTO DE PERFIL
+--------------
+Guarda tu foto aquí exactamente como:
+    assets/isabel.jpg
+
+En index.html el marco de la foto ya está preparado. Solo reemplaza este bloque:
+
+    <figure class="photo-frame">
+      <div class="photo-placeholder"> ... </div>
+    </figure>
+
+por:
+
+    <figure class="photo-frame">
+      <img src="assets/isabel.jpg" alt="Isabel Juliana Hurtado Paucar">
+    </figure>
+
+EVIDENCIAS / INFOGRAFÍAS / CAPTURAS
+------------------------------------
+Puedes guardar imágenes sueltas aquí (por ejemplo assets/semana01-captura1.jpg)
+y luego referenciarlas dentro de la ventana de la semana correspondiente en
+script.js, dentro del bloque "EVIDENCIAS" de esa semana.
+
+No es obligatorio subir archivos pesados aquí: para trabajos grandes (PDFs,
+proyectos completos, videos) usa Google Drive y coloca el enlace en los
+botones "ABRIR EN DRIVE" / "VER EVIDENCIA" / "VER INFOGRAFÍA".
+
+FONDO ANIMADO (VIDEO O GIF DE SANGRE)
+--------------------------------------
+Ahora mismo el fondo son goterones generados por CSS/JS. Si consigues un
+video o GIF real, guárdalo aquí, por ejemplo:
+    assets/fondo-sangre.mp4   (recomendado, pesa menos que un GIF)
+    assets/fondo-sangre.gif
+
+Luego, en CADA página HTML (index.html, unidades.html, unidad1..4.html),
+busca esta línea:
+
+    <div id="bg"><!-- goterones generados por script.js; ... --></div>
+
+y reemplázala por:
+
+    <div id="bg">
+      <video autoplay muted loop playsinline>
+        <source src="assets/fondo-sangre.mp4" type="video/mp4">
+      </video>
+    </div>
+
+(o con <img class="bg-media" src="assets/fondo-sangre.gif"> si usas un GIF).
+
+Después, en script.js, busca la función initBackground() y borra o comenta
+la línea "initBackground();" dentro del DOMContentLoaded, para que no se
+generen los goterones de CSS encima de tu video.
+
+IMÁGENES DE UNIDADES Y SEMANAS
+--------------------------------
+Cada fila de unidad (en index.html / unidades.html) y cada fila de semana
+(generada por script.js) tiene un div con clase "imgfade" que se difumina
+hacia la izquierda. Para ponerle una imagen:
+
+- En unidades: agrega al div  style="--img:url('assets/unidad1.jpg')"
+- En semanas: agrega la propiedad "img" a esa semana dentro del objeto
+  UNITS en script.js, por ejemplo:  img:"assets/semana01.jpg"
+
+PIXEL ART / ICONOS DECORATIVOS
+--------------------------------
+Si consigues un pack de iconos pixel-art (corazones, cadenas, calaveras),
+guárdalos aquí (assets/icons/...) y avísame para integrarlos en las
+esquinas de los paneles.
+
+FOTOS DE PERFIL
+----------------
+    assets/isabel.jpg   → foto de Isabel (index.html, marco .photo-frame)
+    assets/docente.jpg  → foto del docente (todas las páginas, .docframe)
